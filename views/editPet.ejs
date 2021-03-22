@@ -1,0 +1,23 @@
+<%- include('./partials/header.ejs') %>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+
+  <div class = 'ui container'>
+    <form action="/pets/<%= id %>?_method=PUT" method="post">
+        <label for = 'name'>Species :</label>
+        <input type="text" name="species" id="petspe" value="<%= species %>">
+
+        <label for = 'name'>NAME :</label>
+        <input type="text" name="name" id="petName" value="<%= name %>">
+
+        <label for = 'name'>Age :</label>
+        <input type="text" name="age" id="petAge" value="<%= age %>">
+
+        <label for = 'name'>Notes :</label>
+        <textarea type="text" name="notes" id="petNotes"><%= notes %></textarea>
+
+        <button type="submit">SAVE</button>
+    </form>
+  </div>
+</body>
+</html>

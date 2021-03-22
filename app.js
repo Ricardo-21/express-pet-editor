@@ -1,6 +1,11 @@
 const express = require('express')
 const app = express()
+const methodOverride = require('method-override')
+const { urlencoded } = require('express');
 const PORT = process.env.PORT || 8000
+
+app.use(urlencoded({extended: false}))
+app.use(methodOverride('_method'))
 
 app.listen(PORT, () => {console.log(`Server started on port ${PORT}`)})
 
@@ -43,6 +48,37 @@ app.get('/', (req, res) => {
 app.get('/pets', (req, res) => {
   res.redirect('/')
 })
+
+app.put('/pets/:id', (req, res) => {
+  pet = pets.find(pet => pet.id == req.params.id);
+  
+  // debugger;
+  pet.species = req.body.species;
+  pet.name = req.body.name;
+  pet.age = req.body.age;
+  pet.notes = req.body.notes;
+  pet.likes = 0;
+
+  res.redirect('/')
+})
+
+app.get('/pets/:id/edit', (req,res) => {
+  pet = pets.find(pet => pet.id == req.params.id);
+  if(pet) {
+    res.render('editPet.ejs', pet);
+  }
+  
+})
+
+app.patch('/like/:id', (req, res) => {
+  pet = pets.find(pet => pet.id == req.params.id);
+  
+  if(pet) {
+    pet.likes += 1;
+  }
+
+  res.redirect('/');
+}) 
 
 app.get("*", (req, res) => {
   res.render("notfound.ejs", {title: "Not Found"})

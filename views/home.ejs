@@ -4,7 +4,8 @@
   <div class="ui container">
     <div class="ui link cards">
       <% for(const pet of pets){ %>
-        <div class="card">
+          
+        <div class="card" >
           <div class="content">
             <div class="header"><%= pet.name %></div>
             <div class="meta">
@@ -13,13 +14,16 @@
             <div class="description">
               <%= pet.notes %>
             </div>
+            <a href = '/pets/<%= pet.id %>/edit'>EDIT</a>
           </div>
           <div class="extra content">
             <span class="right floated">
               <%= pet.age %>
             </span>
             <span>
-              <i class="heart icon"></i>
+              <form action = "/like/<%= pet.id %>?_method=PATCH" method = 'POST'>
+                <button type="submit"><i class="heart icon"></i></button>
+              </form>
               <%= pet.likes %>
             </span>
           </div>
